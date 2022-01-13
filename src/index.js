@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-    <h1>테스트</h1>,
+    <h1>테스트 브런치</h1>,
   document.getElementById('root')
 );
 
