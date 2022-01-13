@@ -24,7 +24,7 @@ jobs:
         run: npm install
 
       - name: Build                   # React Build
-        run: npm run build
+        run: CI= npm run build
 
       - name: Deploy                  # S3에 배포하기
         env:
@@ -34,4 +34,4 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            build s3://github-action-tutorial-hyeon # 자신의 레포지토리로 변경해주세요.
+            build s3://neighborhood-chores # 자신의 레포지토리로 변경해주세요.
