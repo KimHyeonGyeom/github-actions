@@ -17,8 +17,8 @@ jobs:
         node-version: '14.x'
     - name: Build App
       run: |
-        CI= npm run build |
-        npm install
+        npm install |
+        CI= npm run build 
   
     - name: Copy to S3
       uses: jakejarvis/s3-sync-action@master
