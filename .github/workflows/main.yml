@@ -13,12 +13,12 @@ jobs:
 
       - name: Cache node modules      # node modules 캐싱
         uses: actions/cache@v1
-        with:				  
+        with:
           path: node_modules
           key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.OS }}-build-
-            ${{ runner.OS }}- 
+            ${{ runner.OS }}-
 
       - name: Install Dependencies    # 의존 파일 설치
         run: npm install
@@ -26,11 +26,12 @@ jobs:
       - name: Build                   # React Build
         run: npm run build
 
-      - name: Copy to S3
-    	  uses: jakejarvis/s3-sync-action@master
+      - name: Deploy                  # S3에 배포하기
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: ${{ secrets.SOURCE_DIR }} 
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region ap-northeast-2 \
+            build s3://github-action-tutorial-hyeon # 자신의 레포지토리로 변경해주세요.
